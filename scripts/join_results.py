@@ -46,7 +46,7 @@ def join_scalars(experiments):
     scalars = []
     for subdir in experiments:
         scalar = pd.read_csv(
-            os.path.join('../005_results_postprocessed', subdir, 'Scalars.csv'), index_col=[0])
+            os.path.join(exp_paths.results_postprocessed, subdir, 'Scalars.csv'), index_col=[0])
         scalars.append(scalar)
 
     scalars = pd.concat(scalars)
@@ -66,6 +66,11 @@ def copy_timeseries(experiments, fro, to):
 
 
 all_scalars = join_scalars(scenarios)
-all_scalars.to_csv('../006_results_comparison/oemof/Scalars.csv')
+all_scalars.to_csv(
+    os.path.join(
+        exp_paths.results_comparison,
+        'Scalars.csv'
+    )
+)
 
 copy_timeseries(scenarios, exp_paths.results_postprocessed, exp_paths.results_comparison)
